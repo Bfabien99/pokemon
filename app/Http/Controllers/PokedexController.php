@@ -12,6 +12,7 @@ class PokedexController extends Controller
 
     public function list(Request $request)
     {
+        #Cache::delete('pokemon_list');
         if(Cache::has('pokemon_list')) return Cache::get('pokemon_list');
         #$url = $this->api_url . "pokemon/limit/100";
         $url = $this->api_url . "pokemon";
