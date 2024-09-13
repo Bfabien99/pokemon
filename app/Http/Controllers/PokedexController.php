@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
 class PokedexController extends Controller
@@ -11,6 +12,7 @@ class PokedexController extends Controller
 
     public function list(Request $request)
     {
+        if(Cache::has('pokemon_list')) return Cache::get('pokemon_list');
         #$url = $this->api_url . "pokemon/limit/100";
         $url = $this->api_url . "pokemon";
         $api_call = Http::withoutVerifying()->get($url);
@@ -21,7 +23,9 @@ class PokedexController extends Controller
 
         # si le status est 200
         $data = $api_call->json(); # on retourne les données sous forme d'objets
-        return view('home.index', ['pokemons' => $data]);
+        return Cache::remember('pokemon_list', 3600, function () use ($data) {
+            return view('home.index', )->with('pokemons', $data)->render();
+        });
     }
 
     public function show(Request $request, string $pokemon_name)
