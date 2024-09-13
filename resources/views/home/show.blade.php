@@ -5,7 +5,7 @@
         <p>No pokemon available now...</p>
     @else
         <div class="flex flex-col justify-center items-center p-4">
-            <a href="{{route('pokemon.list')}}#{{$pokemon['slug']}}" class="border border-yellow-100 p-2 rounded-sm hover:bg-yellow-300 hover:border-yellow-300">Back</a>
+            <a href="{{route('pokemon.list')}}#{{$pokemon['slug']}}" class="border border-yellow-100 p-2 rounded-sm hover:bg-yellow-300 hover:border-yellow-300">Pokémons</a>
             <div href="{{route('pokemon.detail', $pokemon['slug'])}}" class="p-2 text-center rounded-sm">
                 <div class="flex flex-wrap mx-auto items-center gap-2 justify-center">
                     @if (is_array($pokemon['apiPreEvolution']) && count($pokemon['apiPreEvolution']))
@@ -72,7 +72,7 @@
                 @foreach ($pokemon['apiTypes'] as $type)
                     <div class="text-center">
                         <img src="{{$type['image']}}" alt="" width="70">
-                        <a href="" class="hover:text-blue-400 font-medium">{{$type['name']}}</a>
+                        <a href="{{route('pokemon.type.detail', $type['name'])}}" class="hover:text-blue-400 font-medium">{{$type['name']}}</a>
                     </div>
                 @endforeach
             @endif
