@@ -61,6 +61,10 @@
                         class="flex items-center gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-2.5 text-left text-sm hover:bg-gray-50 disabled:text-gray-500">
                         Types
                     </a>
+                    <form action="{{route('search')}}" method="get" class="flex items-center gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-2.5 text-left text-sm">
+                        <input type="search" name="search" id="" placeholder="pikachu" class="w-full p-2 outline-none border lowercase">
+                        <button class="border border-yellow-200 p-2 bg-yellow-200 hover:border-yellow-300 hover:bg-yellow-300">Search</button>
+                    </form>
                     <p class="flex items-center gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-2.5 text-left text-sm hover:bg-gray-50 disabled:text-gray-500">fabienbrou99@gmail.com</p>
                 </div>
             </div>
