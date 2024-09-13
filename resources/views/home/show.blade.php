@@ -1,13 +1,21 @@
 @extends('layout.app')
 @section('content')
-<section class="bg-yellow-200 max-w-screen-md mx-auto">
+<section class="bg-yellow-200 max-w-screen-md mx-auto shadow-xl rounded-lg">
     @if (count($pokemon) == 0)
         <p>No pokemon available now...</p>
     @else
         <div class="flex flex-col justify-center items-center p-4">
             <a href="{{route('pokemon.list')}}#{{$pokemon['slug']}}" class="border border-yellow-100 p-2 rounded-sm hover:bg-yellow-300 hover:border-yellow-300">Back</a>
             <div href="{{route('pokemon.detail', $pokemon['slug'])}}" class="p-2 text-center rounded-sm">
-                <img src="{{$pokemon['image']}}" alt="" width="250">
+                <div class="flex flex-wrap mx-auto items-center gap-2 justify-center">
+                    @if (is_array($pokemon['apiPreEvolution']) && count($pokemon['apiPreEvolution']))
+                        <a class="border border-blue-400 p-1" href="{{route('pokemon.detail', $pokemon["apiPreEvolution"]['name'])}}">Regresser</a>
+                    @endif
+                    <img src="{{$pokemon['image']}}" alt="" width="250">
+                    @if (is_array($pokemon['apiEvolutions']) && count($pokemon['apiEvolutions']))
+                        <a class="border border-green-400 p-1" href="{{route('pokemon.detail', $pokemon['apiEvolutions'][0]["name"])}}">Evoluer</a>
+                    @endif
+                </div>
                 <p class="font-medium text-4xl">{{$pokemon['name']}}</p>
             </div>
             <div class="flex flex-wrap justify-center">
@@ -63,7 +71,7 @@
             @if ($pokemon['apiTypes'])
                 @foreach ($pokemon['apiTypes'] as $type)
                     <div class="text-center">
-                        <img src="{{$type['image']}}" alt="" width="60">
+                        <img src="{{$type['image']}}" alt="" width="70">
                         <a href="" class="hover:text-blue-400 font-medium">{{$type['name']}}</a>
                     </div>
                 @endforeach
