@@ -21,7 +21,7 @@ class PokedexController extends Controller
         # si le status n'est pas 200
         if ($status != 200)
             return "can't fetch data from remote : " . $request->getUri();
-
+ 
         # si le status est 200
         $data = $api_call->json(); # on retourne les données sous forme d'objets
         return Cache::remember('pokemon_list', 3600, function () use ($data) {
