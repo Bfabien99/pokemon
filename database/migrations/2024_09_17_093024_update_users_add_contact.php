@@ -13,7 +13,9 @@ return new class extends Migration
     {
         //
         Schema::table('users', function(Blueprint $table){
-            $table->string('pseudo')->unique();
+            $table->string('image')->nullable();
+            $table->string('contact')->unique();
+            $table->string('email')->change()->nullable();
         });
     }
 

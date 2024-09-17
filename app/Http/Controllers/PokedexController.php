@@ -13,8 +13,8 @@ class PokedexController extends Controller
     public function list(Request $request)
     {
         #Cache::delete('pokemon_list');
-        if(Cache::has('pokemon_list')) return Cache::get('pokemon_list');
-        #$url = $this->api_url . "pokemon/limit/100";
+        if(Cache::has('pokemon_list')) return view('home.pokemon', ['pokemons' => Cache::get('pokemon_list')]);
+        #$url = $this->api_url . "pokemon/limit/20";
         $url = $this->api_url . "pokemon";
         $api_call = Http::withoutVerifying()->get($url);
         $status = $api_call->status();
@@ -24,9 +24,8 @@ class PokedexController extends Controller
  
         # si le status est 200
         $data = $api_call->json(); # on retourne les données sous forme d'objets
-        return Cache::remember('pokemon_list', 3600, function () use ($data) {
-            return view('home.index', )->with('pokemons', $data)->render();
-        });
+        Cache::put('pokemon_list', $data, 300);
+        return view('home.pokemon', ['pokemons' => $data]);
     }
 
     public function show(Request $request, string $pokemon_name)
@@ -42,6 +41,21 @@ class PokedexController extends Controller
         $data = $api_call->json(); # on retourne les données sous forme d'objets
         return view('home.show', ['pokemon' => $data]);
     }
+
+    public function show_by_id(Request $request, string $pokemon_id)
+    {
+        $url = $this->api_url . "pokemon/$pokemon_id";
+        $api_call = Http::withoutVerifying()->get($url);
+        $status = $api_call->status();
+        # si le status n'est pas 200
+        if ($status != 200)
+            return "can't fetch data from remote : " . $request->getUri();
+
+        # si le status est 200
+        $data = $api_call->json(); # on retourne les données sous forme d'objets
+        return view('home.show', ['pokemon' => $data]);
+    }
+
 
     public function pokemon_types(Request $request)
     {

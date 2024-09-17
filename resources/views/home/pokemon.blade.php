@@ -4,7 +4,6 @@
     @if (count($pokemons) == 0)
         <p class='text-center font-medium text-sm text-gray-400'>Aucun pokémon...</p>
     @else
-        <h3 class="mx-auto my-4 border border-yellow-300 p-1 w-fit">Pokémon de type <span class="font-medium">{{$type}}</span></h3>
         <div class="flex flex-wrap justify-center items-center gap-x-3 gap-y-4 p-4">
             @foreach ($pokemons as $pokemon)
                 @if ($pokemon['apiPreEvolution'] == "none")

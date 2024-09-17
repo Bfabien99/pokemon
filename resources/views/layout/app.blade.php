@@ -65,11 +65,25 @@
                         <input type="search" name="search" id="" placeholder="pikachu" class="w-full p-2 outline-none border lowercase">
                         <button class="border border-yellow-200 p-2 bg-yellow-200 hover:border-yellow-300 hover:bg-yellow-300">Search</button>
                     </form>
-                    <a href="{{route('auth.login')}}"
+                    @auth()
+                    <a href="{{route('home')}}"
+                        class="flex items-center gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-2.5 text-left text-sm hover:bg-gray-50 disabled:text-gray-500">
+                        Pokedex
+                    </a>
+                    <a href="{{route('logout')}}"
+                        class="flex items-center gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-2.5 text-left text-sm hover:bg-gray-50 disabled:text-gray-500">
+                        Profil
+                    </a>
+                    <a href="{{route('logout')}}"
+                        class="flex items-center gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-2.5 text-left text-sm hover:bg-gray-50 disabled:text-gray-500">
+                        Se deconnecter
+                    </a>
+                    @else
+                    <a href="{{route('login')}}"
                         class="flex items-center gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-2.5 text-left text-sm hover:bg-gray-50 disabled:text-gray-500">
                         Se connecter/ S'inscrire
                     </a>
-                    <p class="flex items-center gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-2.5 text-left text-sm hover:bg-gray-50 disabled:text-gray-500">fabienbrou99@gmail.com</p>
+                    @endauth
                 </div>
             </div>
         </div>
